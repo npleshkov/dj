@@ -1,0 +1,70 @@
+
+
+
+
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+
+RELEASE=$(lsb_release -cs)
+echo "deb http://apt.postgresql.org/pub/repos/apt/ ${RELEASE}"-pgdg main | sudo tee  /etc/apt/sources.list.d/pgdg.list
+
+sudo apt update
+sudo apt -y install postgresql-11
+
+
+sudo mcedit /etc/postgresql/11/main/postgresql.conf
+
+listen_addresses = 'locahost'
+
+
+sudo systemctl restart postgresql
+
+sudo ss -tunelp | grep 5432
+
+
+
+CREATE DATABASE dj_crm;
+CREATE DATABASE
+postgres=# CREATE USER srmuser WITH PASSWORD 'Ktnj_2010';
+CREATE ROLE
+postgres=# ALTER ROLE srmuser SET client_encoding TO 'utf8';
+ALTER ROLE
+postgres=# ALTER ROLE srmuser SET default_transaction_isolation TO 'read committed';
+ALTER ROLE
+postgres=# ALTER ROLE srmuser SET timezone TO 'UTC';
+
+GRANT ALL PRIVILEGES ON DATABASE dj_crm TO srmuser;
+
+
+sudo apt-get install python3.7-dev
+
+pip3 install psycopg2
+
+settings.py
+
+'ENGINE': 'django.db.backends.postgresql_psycopg2',
+'NAME': 'dj_crm',
+'USER' : 'srmuser',
+'PASSWORD' : 'Ktnj_2010',
+'HOST' : '127.0.0.1',
+'PORT' : '5432',
+
+
+mkdir app
+cd  app
+
+django-admin startproject basejob
+
+
+
+
+python3 manage.py startapp  blog
+
+./manage.py migrate
+
+ ./manage.py runserver 5000
+
+ ./manage.py runserver 5000
+
+
+cd 
+ source venv/bin/activate
